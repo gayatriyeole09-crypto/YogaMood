@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>About YogaMood</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- YogaMood CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top yogamood-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('home') }}">
+            🌿 YogaMood
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('home') }}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('mood') }}">
+                        Mood
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('yoga') }}">
+                        Yoga
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('videos') }}">
+                        Videos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('breathing') }}">
+                        Breathing
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('about') }}">
+                        About
+                    </a>
+                </li>
+
+
+                {% if session.get("user_id") %}
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <span class="nav-link fw-semibold">
+                            👋 Hi, {{ session.get("user_name") }}
+                        </span>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="btn btn-outline-light rounded-pill px-4">
+
+                            Dashboard
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('logout') }}"
+                            class="btn btn-success rounded-pill px-4">
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+
+                {% else %}
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="btn btn-outline-light rounded-pill px-4">
+
+                            Login
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('signup') }}"
+                            class="btn btn-success rounded-pill px-4">
+
+                            Sign Up
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    class="py-5"
+    style="
+        background:
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #ecfdf5
+        );
+    ">
+
+    <div class="container text-center py-5">
+
+        <span
+            class="
+                badge
+                bg-success-subtle
+                text-success
+                px-3
+                py-2
+                rounded-pill
+            ">
+
+            🌿 About YogaMood
+
+        </span>
+
+
+        <h1 class="display-5 fw-bold mt-3">
+
+            Your Mood. Your Yoga. Your Balance.
+
+        </h1>
+
+
+        <p
+            class="
+                lead
+                text-muted
+                mx-auto
+                mt-3
+            "
+            style="max-width:760px;">
+
+            YogaMood is a mood-based yoga website designed to
+            help users discover suitable yoga practices,
+            breathing exercises and relaxation activities.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT PROJECT
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-6">
+
+                <span
+                    class="
+                        badge
+                        bg-success-subtle
+                        text-success
+                        px-3
+                        py-2
+                        rounded-pill
+                    ">
+
+                    🌱 Our Project
+
+                </span>
+
+
+                <h2 class="fw-bold mt-3">
+
+                    What is YogaMood?
+
+                </h2>
+
+
+                <p class="text-muted">
+
+                    YogaMood is a web-based project that connects
+                    mood selection with yoga recommendations.
+
+                </p>
+
+
+                <p class="text-muted">
+
+                    Users can select how they are feeling and
+                    explore suitable yoga practices. The website
+                    also provides yoga details, video resources,
+                    breathing exercises and a relaxation timer.
+
+                </p>
+
+
+                <p class="text-muted mb-0">
+
+                    User accounts, mood history and feedback are
+                    managed using a Flask backend and SQLite
+                    database.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-6 text-center">
+
+                <div
+                    class="
+                        bg-success-subtle
+                        rounded-5
+                        p-5
+                    ">
+
+                    <div class="yoga-symbol">
+                        <img
+                        src="{{ url_for('static', filename='images/yoga.webp') }}"
+                        alt="Yoga Meditation"
+                        class="yoga-symbol-image"
+                        >
+                    </div>
+
+                    
+
+
+                    <h3 class="fw-bold mt-4">
+
+                        Personalized Practice
+
+                    </h3>
+
+
+                    <p class="text-muted mb-0">
+
+                        Simple, guided and user-friendly.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURES
+========================================================= -->
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+
+        <div class="text-center mb-5">
+
+            <span
+                class="
+                    badge
+                    bg-success-subtle
+                    text-success
+                    px-3
+                    py-2
+                    rounded-pill
+                ">
+
+                ✨ Features
+
+            </span>
+
+
+            <h2 class="fw-bold mt-3">
+
+                What YogaMood Provides
+
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Feature 1 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            😊
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Mood Selection
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            Select your current mood and
+                            get relevant yoga recommendations.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 2 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            🧘
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Yoga Recommendations
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            Explore yoga practices according
+                            to the selected mood.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 3 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            🎥
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Video Library
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            Browse guided yoga video resources
+                            using the video library.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 4 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            🫁
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Breathing Exercise
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            Practice guided breathing with an
+                            interactive breathing circle.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 5 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            ⏱️
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Relaxation Timer
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            Select a comfortable duration for
+                            a guided relaxation session.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 6 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        h-100
+                    ">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size:45px;">
+                            📊
+                        </div>
+
+
+                        <h4 class="fw-bold mt-3">
+
+                            Personal Dashboard
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            View mood history, feedback and
+                            personalized activity links.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+
+        <div class="text-center mb-5">
+
+            <span
+                class="
+                    badge
+                    bg-success-subtle
+                    text-success
+                    px-3
+                    py-2
+                    rounded-pill
+                ">
+
+                ⚙️ How It Works
+
+            </span>
+
+
+            <h2 class="fw-bold mt-3">
+
+                Simple 4-Step Process
+
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- 01 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="text-center">
+
+                    <div
+                        class="
+                            mx-auto
+                            bg-success-subtle
+                            rounded-circle
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                        "
+                        style="
+                            width:80px;
+                            height:80px;
+                            font-size:30px;
+                        ">
+
+                        01
+
+                    </div>
+
+
+                    <h5 class="fw-bold mt-4">
+
+                        Create Account
+
+                    </h5>
+
+
+                    <p class="text-muted">
+
+                        Sign up and verify your email.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 02 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="text-center">
+
+                    <div
+                        class="
+                            mx-auto
+                            bg-success-subtle
+                            rounded-circle
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                        "
+                        style="
+                            width:80px;
+                            height:80px;
+                            font-size:30px;
+                        ">
+
+                        02
+
+                    </div>
+
+
+                    <h5 class="fw-bold mt-4">
+
+                        Select Mood
+
+                    </h5>
+
+
+                    <p class="text-muted">
+
+                        Choose how you feel today.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 03 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="text-center">
+
+                    <div
+                        class="
+                            mx-auto
+                            bg-success-subtle
+                            rounded-circle
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                        "
+                        style="
+                            width:80px;
+                            height:80px;
+                            font-size:30px;
+                        ">
+
+                        03
+
+                    </div>
+
+
+                    <h5 class="fw-bold mt-4">
+
+                        Explore Yoga
+
+                    </h5>
+
+
+                    <p class="text-muted">
+
+                        View yoga recommendations and details.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 04 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="text-center">
+
+                    <div
+                        class="
+                            mx-auto
+                            bg-success-subtle
+                            rounded-circle
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                        "
+                        style="
+                            width:80px;
+                            height:80px;
+                            font-size:30px;
+                        ">
+
+                        04
+
+                    </div>
+
+
+                    <h5 class="fw-bold mt-4">
+
+                        Practice & Relax
+
+                    </h5>
+
+
+                    <p class="text-muted">
+
+                        Use videos, breathing and relaxation tools.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TECHNOLOGY
+========================================================= -->
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+
+                <div class="text-center mb-5">
+
+                    <span
+                        class="
+                            badge
+                            bg-success-subtle
+                            text-success
+                            px-3
+                            py-2
+                            rounded-pill
+                        ">
+
+                        💻 Technology
+
+                    </span>
+
+
+                    <h2 class="fw-bold mt-3">
+
+                        Technologies Used
+
+                    </h2>
+
+                </div>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div
+                            class="
+                                bg-white
+                                rounded-4
+                                shadow-sm
+                                p-4
+                                text-center
+                            ">
+
+                            <div style="font-size:40px;">
+                                🐍
+                            </div>
+
+                            <strong>
+                                Python
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div
+                            class="
+                                bg-white
+                                rounded-4
+                                shadow-sm
+                                p-4
+                                text-center
+                            ">
+
+                            <div style="font-size:40px;">
+                                🌐
+                            </div>
+
+                            <strong>
+                                Flask
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div
+                            class="
+                                bg-white
+                                rounded-4
+                                shadow-sm
+                                p-4
+                                text-center
+                            ">
+
+                            <div style="font-size:40px;">
+                                🗄️
+                            </div>
+
+                            <strong>
+                                SQLite
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div
+                            class="
+                                bg-white
+                                rounded-4
+                                shadow-sm
+                                p-4
+                                text-center
+                            ">
+
+                            <div style="font-size:40px;">
+                                🎨
+                            </div>
+
+                            <strong>
+                                Bootstrap
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div
+            class="
+                rounded-5
+                p-4
+                p-md-5
+                text-center
+            "
+            style="
+                background:
+                linear-gradient(
+                    135deg,
+                    #12372a,
+                    #166534
+                );
+            ">
+
+
+            <div style="font-size:55px;">
+                🌿
+            </div>
+
+
+            <h2 class="text-white fw-bold mt-3">
+
+                Start Your YogaMood Journey
+
+            </h2>
+
+
+            <p
+                class="
+                    text-white-50
+                    mx-auto
+                    mb-4
+                "
+                style="max-width:650px;">
+
+                Select your mood and explore personalized
+                yoga, video and breathing activities.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('mood') }}"
+                class="
+                    btn
+                    btn-success
+                    btn-lg
+                    rounded-pill
+                    px-5
+                ">
+
+                Choose Your Mood
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-dark text-white py-5">
+
+    <div class="container">
+
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-6">
+
+                <h4 class="fw-bold">
+
+                    🌿 YogaMood
+
+                </h4>
+
+
+                <p class="text-white-50">
+
+                    Mood-based yoga recommendation website
+                    with yoga practices, videos, breathing
+                    exercises and relaxation tools.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <h6 class="fw-bold mb-3">
+
+                    Quick Links
+
+                </h6>
+
+
+                <div class="d-flex flex-column gap-2">
+
+                    <a
+                        href="{{ url_for('home') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Home
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('mood') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Mood
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('yoga') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Yoga
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('videos') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Videos
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <h6 class="fw-bold mb-3">
+
+                    Explore
+
+                </h6>
+
+
+                <div class="d-flex flex-column gap-2">
+
+                    <a
+                        href="{{ url_for('breathing') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Breathing
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Dashboard
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="text-white-50 text-decoration-none">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <hr class="border-secondary my-4">
+
+
+        <div
+            class="
+                d-flex
+                flex-column
+                flex-md-row
+                justify-content-between
+                gap-2
+            ">
+
+            <small class="text-white-50">
+
+                © 2026 YogaMood. All rights reserved.
+
+            </small>
+
+
+            <small class="text-white-50">
+
+                Your Mood. Your Yoga. Your Balance. 🌿
+
+            </small>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- YogaMood JS -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+</body>
+
+</html>

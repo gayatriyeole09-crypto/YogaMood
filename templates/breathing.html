@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Breathing Exercise | YogaMood</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- YogaMood CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top yogamood-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('home') }}">
+            🌿 YogaMood
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('home') }}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('mood') }}">
+                        Mood
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('yoga') }}">
+                        Yoga
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('videos') }}">
+                        Videos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('breathing') }}">
+                        Breathing
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('about') }}">
+                        About
+                    </a>
+                </li>
+
+
+                {% if session.get("user_id") %}
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <span class="nav-link fw-semibold">
+                            👋 Hi, {{ session.get("user_name") }}
+                        </span>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="btn btn-outline-light rounded-pill px-4">
+
+                            Dashboard
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('logout') }}"
+                            class="btn btn-success rounded-pill px-4">
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+
+                {% else %}
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="btn btn-outline-light rounded-pill px-4">
+
+                            Login
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('signup') }}"
+                            class="btn btn-success rounded-pill px-4">
+
+                            Sign Up
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    class="py-5"
+    style="background: linear-gradient(135deg, #f0fdf4, #ecfdf5);">
+
+    <div class="container text-center py-4">
+
+        <span
+            class="badge bg-success-subtle text-success px-3 py-2 rounded-pill mb-3">
+            🫁 Guided Breathing
+        </span>
+
+        <h1 class="display-5 fw-bold mb-3">
+            Breathe & Relax
+        </h1>
+
+        <p class="lead text-muted">
+            Follow the breathing rhythm and take a quiet moment for yourself.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BREATHING EXERCISE
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body text-center p-4 p-md-5">
+
+                        <h2 class="fw-bold mb-2">
+                            Guided Breathing
+                        </h2>
+
+                        <p class="text-muted mb-4">
+                            Follow the circle and breathe at a comfortable pace.
+                        </p>
+
+
+                        <!-- Breathing Circle -->
+
+                        <div class="breathing-wrapper">
+
+                            <div
+                                id="breathingCircle"
+                                class="breathing-circle">
+
+                                <div>
+
+                                    <div
+                                        id="breathingPhase"
+                                        class="breathing-phase">
+                                        Ready
+                                    </div>
+
+                                    <div
+                                        id="breathingSeconds"
+                                        class="breathing-seconds">
+                                        00
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Cycle Info -->
+
+                        <div class="mt-4">
+
+                            <span class="badge bg-success-subtle text-success px-3 py-2">
+                                Inhale 4 sec • Hold 4 sec • Exhale 6 sec
+                            </span>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div
+                            class="d-flex justify-content-center flex-wrap gap-2 mt-4">
+
+                            <button
+                                id="startBtn"
+                                class="btn btn-success rounded-pill px-4">
+                                ▶ Start
+                            </button>
+
+                            <button
+                                id="pauseBtn"
+                                class="btn btn-outline-success rounded-pill px-4"
+                                disabled>
+                                ⏸ Pause
+                            </button>
+
+                            <button
+                                id="resetBtn"
+                                class="btn btn-outline-secondary rounded-pill px-4">
+                                ↻ Reset
+                            </button>
+
+                        </div>
+
+
+                        <p
+                            id="breathingStatus"
+                            class="text-muted mt-4 mb-0">
+                            Press Start to begin.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RELAXATION TIMER
+========================================================= -->
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body text-center p-4 p-md-5">
+
+                        <div style="font-size: 55px;">
+                            ⏱️
+                        </div>
+
+                        <h2 class="fw-bold mt-3">
+                            Relaxation Timer
+                        </h2>
+
+                        <p class="text-muted">
+                            Choose how long you would like to relax.
+                        </p>
+
+
+                        <!-- Timer Display -->
+
+                        <div
+                            id="timerDisplay"
+                            class="display-3 fw-bold text-success my-4">
+                            05:00
+                        </div>
+
+
+                        <!-- Timer Buttons -->
+
+                        <div
+                            class="d-flex justify-content-center flex-wrap gap-2">
+
+                            <button
+                                class="btn btn-outline-success rounded-pill px-4 timer-option"
+                                data-minutes="1">
+                                1 Minute
+                            </button>
+
+                            <button
+                                class="btn btn-outline-success rounded-pill px-4 timer-option active"
+                                data-minutes="5">
+                                5 Minutes
+                            </button>
+
+                            <button
+                                class="btn btn-outline-success rounded-pill px-4 timer-option"
+                                data-minutes="10">
+                                10 Minutes
+                            </button>
+
+                            <button
+                                class="btn btn-outline-success rounded-pill px-4 timer-option"
+                                data-minutes="15">
+                                15 Minutes
+                            </button>
+
+                        </div>
+
+
+                        <!-- Timer Controls -->
+
+                        <div
+                            class="d-flex justify-content-center flex-wrap gap-2 mt-4">
+
+                            <button
+                                id="timerStart"
+                                class="btn btn-success rounded-pill px-4">
+                                ▶ Start Timer
+                            </button>
+
+                            <button
+                                id="timerPause"
+                                class="btn btn-outline-success rounded-pill px-4"
+                                disabled>
+                                ⏸ Pause
+                            </button>
+
+                            <button
+                                id="timerReset"
+                                class="btn btn-outline-secondary rounded-pill px-4">
+                                ↻ Reset
+                            </button>
+
+                        </div>
+
+                        <p
+                            id="timerMessage"
+                            class="text-muted mt-4 mb-0">
+                            Select a duration and start your relaxation timer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRACTICE TIPS
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span
+                class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                🌿 Simple Tips
+            </span>
+
+            <h2 class="fw-bold mt-3">
+                Make Your Practice Comfortable
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="card h-100 border-0 shadow-sm rounded-4 text-center">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size: 45px;">
+                            🪑
+                        </div>
+
+                        <h4 class="fw-bold mt-3">
+                            Find a Comfortable Position
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Sit or lie down in a position that feels comfortable
+                            for your practice.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="card h-100 border-0 shadow-sm rounded-4 text-center">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size: 45px;">
+                            🌬️
+                        </div>
+
+                        <h4 class="fw-bold mt-3">
+                            Breathe Naturally
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Keep your breathing smooth and comfortable rather
+                            than forcing the rhythm.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="card h-100 border-0 shadow-sm rounded-4 text-center">
+
+                    <div class="card-body p-4">
+
+                        <div style="font-size: 45px;">
+                            🌱
+                        </div>
+
+                        <h4 class="fw-bold mt-3">
+                            Practice Gently
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Stop the exercise if you feel pain, dizziness or
+                            discomfort.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-dark text-white py-4">
+
+    <div class="container text-center">
+
+        <h5 class="fw-bold">
+            🌿 YogaMood
+        </h5>
+
+        <p class="text-white-50 mb-2">
+            Mood-based yoga recommendation website
+        </p>
+
+        <small class="text-white-50">
+            © 2026 YogaMood. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =========================================================
+     YOGAMOOD JS
+========================================================= -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+<!-- =========================================================
+     BREATHING + TIMER SCRIPT
+========================================================= -->
+
+<script>
+
+
+// =========================================================
+// BREATHING EXERCISE
+// =========================================================
+
+const breathingCircle =
+    document.getElementById("breathingCircle");
+
+const breathingPhase =
+    document.getElementById("breathingPhase");
+
+const breathingSeconds =
+    document.getElementById("breathingSeconds");
+
+const breathingStatus =
+    document.getElementById("breathingStatus");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const pauseBtn =
+    document.getElementById("pauseBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+
+const phases = [
+
+    {
+        name: "Breathe In",
+        seconds: 4,
+        className: "inhale"
+    },
+
+    {
+        name: "Hold",
+        seconds: 4,
+        className: "hold"
+    },
+
+    {
+        name: "Breathe Out",
+        seconds: 6,
+        className: "exhale"
+    }
+
+];
+
+
+let currentPhase = 0;
+let remainingSeconds = phases[0].seconds;
+let breathingInterval = null;
+let breathingRunning = false;
+
+
+// Update display
+
+function updateBreathingDisplay() {
+
+    breathingPhase.textContent =
+        phases[currentPhase].name;
+
+    breathingSeconds.textContent =
+        String(remainingSeconds).padStart(2, "0");
+
+}
+
+
+// Start breathing
+
+function startBreathing() {
+
+    if (breathingRunning) {
+        return;
+    }
+
+    breathingRunning = true;
+
+    startBtn.disabled = true;
+    pauseBtn.disabled = false;
+
+    breathingStatus.textContent =
+        "Follow the circle and breathe comfortably.";
+
+    breathingCircle.classList.remove(
+        "inhale",
+        "hold",
+        "exhale"
+    );
+
+    breathingCircle.classList.add(
+        phases[currentPhase].className
+    );
+
+
+    breathingInterval = setInterval(function() {
+
+        remainingSeconds--;
+
+        updateBreathingDisplay();
+
+
+        if (remainingSeconds <= 0) {
+
+            currentPhase =
+                (currentPhase + 1) % phases.length;
+
+            remainingSeconds =
+                phases[currentPhase].seconds;
+
+
+            breathingCircle.classList.remove(
+                "inhale",
+                "hold",
+                "exhale"
+            );
+
+            breathingCircle.classList.add(
+                phases[currentPhase].className
+            );
+
+            updateBreathingDisplay();
+
+        }
+
+    }, 1000);
+
+}
+
+
+// Pause breathing
+
+function pauseBreathing() {
+
+    if (!breathingRunning) {
+        return;
+    }
+
+    clearInterval(breathingInterval);
+
+    breathingInterval = null;
+
+    breathingRunning = false;
+
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+
+    breathingStatus.textContent =
+        "Breathing exercise paused.";
+
+}
+
+
+// Reset breathing
+
+function resetBreathing() {
+
+    clearInterval(breathingInterval);
+
+    breathingInterval = null;
+
+    breathingRunning = false;
+
+    currentPhase = 0;
+
+    remainingSeconds =
+        phases[0].seconds;
+
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+
+    breathingCircle.classList.remove(
+        "inhale",
+        "hold",
+        "exhale"
+    );
+
+    breathingPhase.textContent =
+        "Ready";
+
+    breathingSeconds.textContent =
+        "00";
+
+    breathingStatus.textContent =
+        "Press Start to begin.";
+
+}
+
+
+startBtn.addEventListener(
+    "click",
+    startBreathing
+);
+
+pauseBtn.addEventListener(
+    "click",
+    pauseBreathing
+);
+
+resetBtn.addEventListener(
+    "click",
+    resetBreathing
+);
+
+
+// =========================================================
+// RELAXATION TIMER
+// =========================================================
+
+const timerDisplay =
+    document.getElementById("timerDisplay");
+
+const timerStart =
+    document.getElementById("timerStart");
+
+const timerPause =
+    document.getElementById("timerPause");
+
+const timerReset =
+    document.getElementById("timerReset");
+
+const timerMessage =
+    document.getElementById("timerMessage");
+
+const timerOptions =
+    document.querySelectorAll(".timer-option");
+
+
+let selectedMinutes = 5;
+
+let totalSeconds =
+    selectedMinutes * 60;
+
+let timerInterval = null;
+
+let timerRunning = false;
+
+
+// Format timer
+
+function formatTime(seconds) {
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        seconds % 60;
+
+    return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0")
+    );
+
+}
+
+
+// Update timer display
+
+function updateTimerDisplay() {
+
+    timerDisplay.textContent =
+        formatTime(totalSeconds);
+
+}
+
+
+// Select duration
+
+timerOptions.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        if (timerRunning) {
+            return;
+        }
+
+        timerOptions.forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        selectedMinutes =
+            Number(this.dataset.minutes);
+
+        totalSeconds =
+            selectedMinutes * 60;
+
+        updateTimerDisplay();
+
+        timerMessage.textContent =
+            "Ready for " +
+            selectedMinutes +
+            " minute(s) of relaxation.";
+
+    });
+
+});
+
+
+// Start timer
+
+function startTimer() {
+
+    if (timerRunning) {
+        return;
+    }
+
+    if (totalSeconds <= 0) {
+
+        totalSeconds =
+            selectedMinutes * 60;
+
+    }
+
+    timerRunning = true;
+
+    timerStart.disabled = true;
+
+    timerPause.disabled = false;
+
+    timerMessage.textContent =
+        "Relaxation timer is running.";
+
+
+    timerInterval =
+        setInterval(function() {
+
+            totalSeconds--;
+
+            updateTimerDisplay();
+
+
+            if (totalSeconds <= 0) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+                timerRunning = false;
+
+                timerStart.disabled = false;
+
+                timerPause.disabled = true;
+
+                timerMessage.textContent =
+                    "✨ Relaxation session complete.";
+
+            }
+
+        }, 1000);
+
+}
+
+
+// Pause timer
+
+function pauseTimer() {
+
+    if (!timerRunning) {
+        return;
+    }
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timerRunning = false;
+
+    timerStart.disabled = false;
+
+    timerPause.disabled = true;
+
+    timerMessage.textContent =
+        "Relaxation timer paused.";
+
+}
+
+
+// Reset timer
+
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timerRunning = false;
+
+    totalSeconds =
+        selectedMinutes * 60;
+
+    timerStart.disabled = false;
+
+    timerPause.disabled = true;
+
+    updateTimerDisplay();
+
+    timerMessage.textContent =
+        "Timer reset. Ready to begin.";
+
+}
+
+
+timerStart.addEventListener(
+    "click",
+    startTimer
+);
+
+timerPause.addEventListener(
+    "click",
+    pauseTimer
+);
+
+timerReset.addEventListener(
+    "click",
+    resetTimer
+);
+
+
+// Initial display
+
+updateBreathingDisplay();
+
+updateTimerDisplay();
+
+</script>
+
+</body>
+</html>

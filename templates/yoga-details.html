@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ yoga_name }} | YogaMood</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top yogamood-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('home') }}">
+            🌿 YogaMood
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#yogaDetailsNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div
+            class="collapse navbar-collapse"
+            id="yogaDetailsNavbar">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('home') }}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('mood') }}">
+                        Mood
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="{{ url_for('yoga') }}">
+                        Yoga
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('videos') }}">
+                        Videos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('breathing') }}">
+                        Breathing
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url_for('about') }}">
+                        About
+                    </a>
+                </li>
+
+
+                {% if session.get("user_id") %}
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="btn btn-outline-light rounded-pill px-4">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                    <a
+                        href="{{ url_for('logout') }}"
+                        class="btn btn-success rounded-pill px-4">
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+                {% else %}
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="btn btn-outline-light rounded-pill px-4">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                    <a
+                        href="{{ url_for('signup') }}"
+                        class="btn btn-success rounded-pill px-4">
+
+                        Sign Up
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section
+    class="py-5"
+    style="
+        background: linear-gradient(
+            135deg,
+            #f0fdf4,
+            #ecfdf5
+        );
+    ">
+
+    <div class="container text-center py-4">
+
+        <span
+            class="
+                badge
+                bg-success-subtle
+                text-success
+                px-3
+                py-2
+                rounded-pill
+            ">
+
+            🌿 Yoga Practice
+
+        </span>
+
+        <h1 id="pageTitle"
+            class="display-5 fw-bold mt-3">
+
+            {{ yoga_name }}
+
+        </h1>
+
+        <p class="lead text-muted">
+
+            Learn the pose and practice it comfortably.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DETAILS ================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <div
+                    class="
+                        card
+                        border-0
+                        shadow-sm
+                        rounded-4
+                        overflow-hidden
+                    ">
+
+                    <!-- HEADER -->
+
+                    <div
+                        class="text-center py-5"
+                        style="background:#f0fdf4;">
+
+                        <div
+                            id="poseEmoji"
+                            style="font-size:90px;">
+
+                            🧘
+
+                        </div>
+
+                        <h2
+                            id="poseName"
+                            class="fw-bold mt-3">
+
+                            {{ yoga_name }}
+
+                        </h2>
+
+                        <div
+                            class="
+                                d-flex
+                                justify-content-center
+                                flex-wrap
+                                gap-2
+                                mt-3
+                            ">
+
+                            <span
+                                id="poseDuration"
+                                class="
+                                    badge
+                                    bg-success-subtle
+                                    text-success
+                                    px-3
+                                    py-2
+                                ">
+
+                                ⏱️ 5–10 min
+
+                            </span>
+
+                            <span
+                                id="poseLevel"
+                                class="
+                                    badge
+                                    bg-success-subtle
+                                    text-success
+                                    px-3
+                                    py-2
+                                ">
+
+                                🌱 Beginner
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BODY -->
+
+                    <div class="card-body p-4 p-md-5">
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="mb-5">
+
+                            <h3 class="fw-bold mb-3">
+                                📖 About This Pose
+                            </h3>
+
+                            <p
+                                id="poseDescription"
+                                class="text-muted fs-5">
+                            </p>
+
+                        </div>
+
+
+                        <!-- BENEFITS -->
+
+                        <div class="mb-5">
+
+                            <h3 class="fw-bold mb-3">
+                                🌿 Benefits
+                            </h3>
+
+                            <ul
+                                id="poseBenefits"
+                                class="text-muted">
+                            </ul>
+
+                        </div>
+
+
+                        <!-- STEPS -->
+
+                        <div class="mb-5">
+
+                            <h3 class="fw-bold mb-3">
+                                🧘 How To Practice
+                            </h3>
+
+                            <ol
+                                id="poseSteps"
+                                class="text-muted">
+                            </ol>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FAVORITE + PROGRESS
+                        ================================================= -->
+
+                        {% if session.get("user_id") %}
+
+                        <div
+                            class="
+                                p-4
+                                rounded-4
+                                mb-4
+                            "
+                            style="background:#f8fafc;">
+
+                            <div class="row g-4 align-items-center">
+
+
+                                <!-- FAVORITE -->
+
+                                <div class="col-md-6">
+
+                                    <h5 class="fw-bold">
+                                        ❤️ Favorite Yoga
+                                    </h5>
+
+                                    <p class="text-muted">
+                                        Save this pose for quick access later.
+                                    </p>
+
+
+                                    {% if is_favorite %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('remove_favorite') }}">
+
+                                        <input
+                                            type="hidden"
+                                            name="yoga_name"
+                                            value="{{ yoga_name }}">
+
+                                        <button
+                                            type="submit"
+                                            class="
+                                                btn
+                                                btn-outline-danger
+                                                rounded-pill
+                                                px-4
+                                            ">
+
+                                            <i class="bi bi-heart-fill me-2"></i>
+
+                                            Remove Favorite
+
+                                        </button>
+
+                                    </form>
+
+                                    {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('save_favorite') }}">
+
+                                        <input
+                                            type="hidden"
+                                            name="yoga_name"
+                                            value="{{ yoga_name }}">
+
+                                        <button
+                                            type="submit"
+                                            class="
+                                                btn
+                                                btn-danger
+                                                rounded-pill
+                                                px-4
+                                            ">
+
+                                            <i class="bi bi-heart me-2"></i>
+
+                                            Save to Favorites
+
+                                        </button>
+
+                                    </form>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- PROGRESS -->
+
+                                <div class="col-md-6">
+
+                                    <h5 class="fw-bold">
+                                        ✅ Practice Progress
+                                    </h5>
+
+                                    <p class="text-muted">
+                                        Mark this yoga practice as completed.
+                                    </p>
+
+
+                                    {% if is_completed %}
+
+                                    <div
+                                        class="
+                                            alert
+                                            alert-success
+                                            border-0
+                                            rounded-3
+                                            mb-0
+                                        ">
+
+                                        <strong>
+                                            ✓ Completed
+                                        </strong>
+
+                                        <div class="small mt-1">
+                                            You have completed this practice.
+                                        </div>
+
+                                    </div>
+
+                                    {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('complete_yoga') }}">
+
+                                        <input
+                                            type="hidden"
+                                            name="yoga_name"
+                                            value="{{ yoga_name }}">
+
+                                        <button
+                                            type="submit"
+                                            class="
+                                                btn
+                                                btn-success
+                                                rounded-pill
+                                                px-4
+                                            ">
+
+                                            <i class="bi bi-check-circle me-2"></i>
+
+                                            Mark as Completed
+
+                                        </button>
+
+                                    </form>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {% else %}
+
+
+                        <div
+                            class="
+                                alert
+                                alert-success
+                                border-0
+                                rounded-4
+                            ">
+
+                            <strong>
+                                🌿 Login to Track Your Progress
+                            </strong>
+
+                            <p class="mb-2 mt-1">
+                                Login to save favorites and mark
+                                completed yoga practices.
+                            </p>
+
+                            <a
+                                href="{{ url_for('login') }}"
+                                class="text-success fw-semibold">
+
+                                Login Now →
+
+                            </a>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- PRACTICE TIP -->
+
+                        <div
+                            class="
+                                alert
+                                alert-success
+                                border-0
+                                rounded-4
+                            ">
+
+                            <strong>
+                                🌱 Practice Tip
+                            </strong>
+
+                            <p class="mb-0 mt-2">
+
+                                Practice slowly and comfortably.
+                                Stop if you feel pain, dizziness
+                                or discomfort.
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- BUTTONS -->
+
+                        <div
+                            class="
+                                d-flex
+                                justify-content-center
+                                flex-wrap
+                                gap-3
+                                mt-4
+                            ">
+
+                            <a
+                                href="{{ url_for('yoga') }}"
+                                class="
+                                    btn
+                                    btn-success
+                                    rounded-pill
+                                    px-4
+                                ">
+
+                                ← Back to Yoga
+
+                            </a>
+
+                            <a
+                                href="{{ url_for('breathing') }}"
+                                class="
+                                    btn
+                                    btn-outline-success
+                                    rounded-pill
+                                    px-4
+                                ">
+
+                                🫁 Breathing
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="bg-dark text-white py-4">
+
+    <div class="container text-center">
+
+        <h5 class="fw-bold">
+            🌿 YogaMood
+        </h5>
+
+        <p class="text-white-50 mb-2">
+            Your Mood. Your Yoga. Your Balance.
+        </p>
+
+        <small class="text-white-50">
+            © 2026 YogaMood. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= BOOTSTRAP ================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- ================= YOGA DATA ================= -->
+
+<script>
+
+const yogaDetails = {
+
+    "Child's Pose": {
+        emoji: "🧘",
+        duration: "5–10 min",
+        level: "Beginner",
+        description:
+            "Child's Pose is a gentle resting yoga posture commonly used in calm yoga routines.",
+        benefits: [
+            "Provides a comfortable resting position.",
+            "Can be included in gentle yoga sessions.",
+            "Encourages awareness of breathing.",
+            "Suitable for a quiet practice."
+        ],
+        steps: [
+            "Kneel comfortably on the floor.",
+            "Bring your hips gently toward your heels.",
+            "Lower your upper body forward.",
+            "Rest your forehead comfortably.",
+            "Keep your breathing slow and comfortable.",
+            "Return slowly when ready."
+        ]
+    },
+
+    "Cat-Cow Pose": {
+        emoji: "🐈",
+        duration: "3–5 min",
+        level: "Beginner",
+        description:
+            "Cat-Cow Pose is a gentle flowing movement between two simple spinal positions.",
+        benefits: [
+            "Provides gentle spinal movement.",
+            "Can be used in a warm-up routine.",
+            "Encourages mindful movement.",
+            "Suitable for a slow yoga practice."
+        ],
+        steps: [
+            "Start on your hands and knees.",
+            "Keep your hands under your shoulders.",
+            "Keep your knees comfortably under your hips.",
+            "Move slowly between the two positions.",
+            "Coordinate the movement with comfortable breathing.",
+            "Repeat at a gentle pace."
+        ]
+    },
+
+    "Mountain Pose": {
+        emoji: "⛰️",
+        duration: "2–5 min",
+        level: "Beginner",
+        description:
+            "Mountain Pose is a simple standing posture focused on comfortable posture and awareness.",
+        benefits: [
+            "Encourages awareness of standing posture.",
+            "Can be used as a starting position.",
+            "Supports mindful breathing.",
+            "Simple for beginners."
+        ],
+        steps: [
+            "Stand comfortably.",
+            "Keep your feet grounded.",
+            "Keep your spine naturally upright.",
+            "Relax your shoulders.",
+            "Keep your arms by your sides.",
+            "Breathe comfortably."
+        ]
+    },
+
+    "Tree Pose": {
+        emoji: "🌳",
+        duration: "2–5 min",
+        level: "Beginner",
+        description:
+            "Tree Pose is a standing balance posture that can be used for practicing focus and awareness.",
+        benefits: [
+            "Practices balance.",
+            "Encourages focused attention.",
+            "Supports awareness of posture.",
+            "Can be part of a mindful routine."
+        ],
+        steps: [
+            "Stand comfortably.",
+            "Shift your weight gently onto one foot.",
+            "Place the other foot in a comfortable position.",
+            "Keep your upper body upright.",
+            "Keep your breathing steady.",
+            "Return carefully to both feet."
+        ]
+    },
+
+    "Warrior II": {
+        emoji: "🧘‍♀️",
+        duration: "3–5 min",
+        level: "Beginner",
+        description:
+            "Warrior II is a standing posture commonly included in active yoga sequences.",
+        benefits: [
+            "Practices stable standing posture.",
+            "Encourages body awareness.",
+            "Can be part of an active routine.",
+            "Supports controlled movement."
+        ],
+        steps: [
+            "Stand with your feet comfortably apart.",
+            "Turn one foot outward.",
+            "Bend the front knee comfortably.",
+            "Extend your arms to the sides.",
+            "Keep your upper body upright.",
+            "Hold while breathing comfortably."
+        ]
+    },
+
+    "Easy Pose": {
+        emoji: "🪷",
+        duration: "5–10 min",
+        level: "Beginner",
+        description:
+            "Easy Pose is a comfortable seated posture suitable for quiet practice and breathing.",
+        benefits: [
+            "Provides a simple seated position.",
+            "Suitable for quiet practice.",
+            "Can be combined with breathing exercises.",
+            "Easy for beginners."
+        ],
+        steps: [
+            "Sit comfortably.",
+            "Cross your legs naturally.",
+            "Keep your spine comfortably upright.",
+            "Relax your shoulders.",
+            "Rest your hands on your knees.",
+            "Breathe slowly and comfortably."
+        ]
+    },
+
+    "Legs Up The Wall": {
+        emoji: "🦵",
+        duration: "5–10 min",
+        level: "Beginner",
+        description:
+            "Legs Up The Wall is a supported resting posture that can be included in a quiet routine.",
+        benefits: [
+            "Provides a supported resting position.",
+            "Fits into gentle routines.",
+            "Encourages a quiet practice.",
+            "Can be combined with slow breathing."
+        ],
+        steps: [
+            "Sit near a wall.",
+            "Gently bring your legs toward the wall.",
+            "Rest your legs comfortably.",
+            "Relax your arms.",
+            "Breathe slowly.",
+            "Leave the position when you feel ready."
+        ]
+    },
+
+    "Sun Salutation": {
+        emoji: "☀️",
+        duration: "5–10 min",
+        level: "Beginner",
+        description:
+            "Sun Salutation is a flowing sequence combining several basic yoga postures.",
+        benefits: [
+            "Combines movement and breathing.",
+            "Can be used as a yoga sequence.",
+            "Encourages mindful movement.",
+            "Can be practiced at a comfortable pace."
+        ],
+        steps: [
+            "Start in a comfortable standing position.",
+            "Move through the sequence slowly.",
+            "Coordinate movement with comfortable breathing.",
+            "Keep movements controlled.",
+            "Avoid forcing any position.",
+            "Finish in a comfortable standing position."
+        ]
+    },
+
+    "Butterfly Pose": {
+        emoji: "🦋",
+        duration: "3–5 min",
+        level: "Beginner",
+        description:
+            "Butterfly Pose is a seated posture commonly included in gentle flexibility routines.",
+        benefits: [
+            "Can be included in gentle stretching routines.",
+            "Encourages controlled movement.",
+            "Suitable for beginners.",
+            "Can be practiced slowly."
+        ],
+        steps: [
+            "Sit comfortably.",
+            "Bring the soles of your feet together.",
+            "Allow your knees to relax outward.",
+            "Keep your back comfortable.",
+            "Hold your feet gently.",
+            "Stay without forcing movement."
+        ]
+    },
+
+    "Seated Forward Fold": {
+        emoji: "🧘",
+        duration: "3–5 min",
+        level: "Beginner",
+        description:
+            "Seated Forward Fold is a seated posture that should be practiced gently and comfortably.",
+        benefits: [
+            "Can be included in flexibility routines.",
+            "Encourages mindful movement.",
+            "Suitable for a slow practice.",
+            "Supports awareness of body positioning."
+        ],
+        steps: [
+            "Sit with your legs comfortably extended.",
+            "Keep your spine comfortable.",
+            "Gently lean forward.",
+            "Move only within a comfortable range.",
+            "Keep your breathing steady.",
+            "Return slowly."
+        ]
+    },
+
+    "Cobra Pose": {
+        emoji: "🐍",
+        duration: "2–4 min",
+        level: "Beginner",
+        description:
+            "Cobra Pose is a gentle backbend commonly included in basic yoga sequences.",
+        benefits: [
+            "Can be included in a gentle yoga routine.",
+            "Encourages controlled movement.",
+            "Suitable for beginner sequences.",
+            "Promotes awareness of posture."
+        ],
+        steps: [
+            "Lie comfortably on your stomach.",
+            "Place your hands near your shoulders.",
+            "Keep your elbows close to your body.",
+            "Gently lift your upper body.",
+            "Keep the movement comfortable.",
+            "Return slowly."
+        ]
+    },
+
+    "Chair Pose": {
+        emoji: "🪑",
+        duration: "2–4 min",
+        level: "Beginner",
+        description:
+            "Chair Pose is a standing posture commonly included in active yoga sequences.",
+        benefits: [
+            "Can be part of active yoga routines.",
+            "Encourages controlled posture.",
+            "Practices stability.",
+            "Suitable for a beginner sequence."
+        ],
+        steps: [
+            "Stand comfortably.",
+            "Bend your knees gently.",
+            "Move your hips slightly backward.",
+            "Raise your arms comfortably.",
+            "Keep your back in a natural position.",
+            "Return slowly."
+        ]
+    }
+
+};
+
+
+// ================= GET POSE =================
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const yogaName =
+    params.get("yoga") || "{{ yoga_name }}";
+
+const pose =
+    yogaDetails[yogaName] ||
+    yogaDetails["Child's Pose"];
+
+
+// ================= DISPLAY =================
+
+document.getElementById("pageTitle").textContent =
+    yogaName;
+
+document.getElementById("poseName").textContent =
+    yogaName;
+
+document.getElementById("poseEmoji").textContent =
+    pose.emoji;
+
+document.getElementById("poseDuration").textContent =
+    "⏱️ " + pose.duration;
+
+document.getElementById("poseLevel").textContent =
+    "🌱 " + pose.level;
+
+document.getElementById("poseDescription").textContent =
+    pose.description;
+
+
+// ================= BENEFITS =================
+
+const benefitsContainer =
+    document.getElementById("poseBenefits");
+
+pose.benefits.forEach(function(benefit) {
+
+    const li =
+        document.createElement("li");
+
+    li.className = "mb-2";
+
+    li.textContent =
+        "✓ " + benefit;
+
+    benefitsContainer.appendChild(li);
+
+});
+
+
+// ================= STEPS =================
+
+const stepsContainer =
+    document.getElementById("poseSteps");
+
+pose.steps.forEach(function(step) {
+
+    const li =
+        document.createElement("li");
+
+    li.className = "mb-3";
+
+    li.textContent = step;
+
+    stepsContainer.appendChild(li);
+
+});
+
+</script>
+
+</body>
+</html>

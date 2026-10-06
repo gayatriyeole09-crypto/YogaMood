@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | YogaMood</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- YogaMood CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        /* =====================================================
+           GENERAL
+        ===================================================== */
+
+        body {
+            background: #f5f8f5;
+            color: #243b27;
+        }
+
+        .dashboard-wrapper {
+            padding: 40px 0 70px;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .dashboard-hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #3f6045,
+                #6f9272
+            );
+            border-radius: 30px;
+            padding: 42px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 18px 45px rgba(63, 96, 69, 0.20);
+        }
+
+        .dashboard-hero::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            right: -60px;
+            top: -80px;
+        }
+
+        .dashboard-hero::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            left: 45%;
+            bottom: -90px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-hero p {
+            color: #edf7ee;
+        }
+
+        .hero-icon {
+            position: relative;
+            z-index: 2;
+            font-size: 75px;
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .dashboard-stat,
+        .current-mood-card {
+            background: #ffffff;
+            border: 1px solid #e7eee7;
+            border-radius: 22px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 7px 25px rgba(35, 60, 40, 0.06);
+            transition: 0.3s ease;
+        }
+
+        .dashboard-stat:hover,
+        .current-mood-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 35px rgba(63, 96, 69, 0.13);
+        }
+
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 17px;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            color: #2e4a32;
+        }
+
+        .stat-title {
+            color: #7a847b;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+
+        /* =====================================================
+           CURRENT MOOD
+        ===================================================== */
+
+        .current-mood-card {
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #eef9f0
+            );
+            border-color: #d7ead9;
+        }
+
+        .mood-label {
+            color: #7a847b;
+            font-size: 14px;
+        }
+
+        .current-mood {
+            color: #2e7d32;
+            font-size: 27px;
+            font-weight: 800;
+            margin-top: 7px;
+        }
+
+
+        /* =====================================================
+           STREAK
+        ===================================================== */
+
+        .streak-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #fff7ed,
+                #ffedd5
+            );
+            border: 1px solid #fed7aa;
+            border-radius: 23px;
+            padding: 30px;
+            height: 100%;
+        }
+
+        .streak-card::after {
+            content: "🔥";
+            position: absolute;
+            right: 20px;
+            bottom: -15px;
+            font-size: 90px;
+            opacity: 0.13;
+        }
+
+        .streak-title {
+            color: #7c2d12;
+            font-weight: 700;
+        }
+
+        .streak-number {
+            color: #ea580c;
+            font-size: 45px;
+            font-weight: 900;
+            margin: 5px 0;
+        }
+
+        .streak-text {
+            color: #9a3412;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
+
+        .dashboard-section-title {
+            color: #2e4a32;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           QUICK ACCESS
+        ===================================================== */
+
+        .quick-card {
+            display: block;
+            text-decoration: none;
+            background: white;
+            border: 1px solid #e7eee7;
+            border-radius: 21px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 7px 22px rgba(35,60,40,0.05);
+            transition: 0.3s ease;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 16px 30px rgba(63,96,69,0.12);
+            border-color: #b9d6bc;
+        }
+
+        .quick-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            background: #edf8ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        .quick-card h6 {
+            color: #2e4a32;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .quick-card p {
+            color: #7a847b;
+            font-size: 13px;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           COMMON LIST CARD
+        ===================================================== */
+
+        .dashboard-list-card {
+            background: white;
+            border: 1px solid #e7eee7;
+            border-radius: 23px;
+            padding: 27px;
+            height: 100%;
+            box-shadow: 0 7px 25px rgba(35,60,40,0.05);
+        }
+
+
+        /* =====================================================
+           ACHIEVEMENTS
+        ===================================================== */
+
+        .achievement-card {
+            background: white;
+            border: 1px solid #e7eee7;
+            border-radius: 21px;
+            padding: 22px 15px;
+            height: 100%;
+            text-align: center;
+            box-shadow: 0 7px 20px rgba(35,60,40,0.05);
+            transition: 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(63,96,69,0.12);
+        }
+
+        .achievement-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .achievement-card h5 {
+            color: #2e4a32;
+            font-weight: 700;
+        }
+
+        .achievement-card p {
+            color: #7a847b;
+            font-size: 12px;
+        }
+
+        .unlocked-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           NEXT ACHIEVEMENT
+        ===================================================== */
+
+        .next-achievement {
+            background: linear-gradient(
+                135deg,
+                #effaf1,
+                #dcfce7
+            );
+            border: 1px solid #bbf7d0;
+            border-radius: 23px;
+            padding: 30px;
+        }
+
+        .next-icon {
+            font-size: 52px;
+        }
+
+        .next-achievement h4 {
+            color: #166534;
+            font-weight: 800;
+        }
+
+        .progress {
+            height: 11px;
+            border-radius: 20px;
+            background: #ccebd2;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: #2e7d32;
+            border-radius: 20px;
+        }
+
+
+        /* =====================================================
+           HISTORY
+        ===================================================== */
+
+        .history-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #edf1ed;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-mood {
+            font-weight: 700;
+            color: #2e4a32;
+        }
+
+        .history-date {
+            color: #98a2b3;
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           FAVORITES
+        ===================================================== */
+
+        .favorite-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf1ed;
+        }
+
+        .favorite-item:last-child {
+            border-bottom: none;
+        }
+
+        .favorite-name {
+            color: #2e4a32;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 10px;
+            color: #98a2b3;
+        }
+
+        .empty-state-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .green-btn {
+            background: #2e7d32 !important;
+            border-color: #2e7d32 !important;
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .green-btn:hover {
+            background: #1b5e20 !important;
+            border-color: #1b5e20 !important;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .dashboard-wrapper {
+                padding: 25px 0 50px;
+            }
+
+            .dashboard-hero {
+                padding: 28px 23px;
+                border-radius: 23px;
+            }
+
+            .dashboard-hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-icon {
+                font-size: 50px;
+                margin-top: 18px;
+            }
+
+            .dashboard-list-card {
+                padding: 22px;
+            }
+
+            .next-achievement {
+                padding: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top yogamood-navbar">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="{{ url_for('home') }}">
+            🌿 YogaMood
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('home') }}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('mood') }}">
+                        Mood
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('yoga') }}">
+                        Yoga
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('videos') }}">
+                        Videos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('breathing') }}">
+                        Breathing
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        href="{{ url_for('dashboard') }}">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        href="{{ url_for('logout') }}"
+                        class="btn btn-success rounded-pill px-4">
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<main class="dashboard-wrapper">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             WELCOME HERO
+        ================================================= -->
+
+        <section class="dashboard-hero">
+
+            <div class="hero-content">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-9">
+
+                        <p class="mb-2">
+                            🌿 Welcome back
+                        </p>
+
+                        <h1>
+                            Hello, {{ name }} 👋
+                        </h1>
+
+                        <p class="mb-0">
+                            Keep taking care of your mind and body,
+                            one yoga session at a time.
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-md-3 text-center text-md-end">
+
+                        <div class="hero-icon">
+                            🧘‍♀️
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STAT CARDS
+        ================================================= -->
+
+        <div class="row g-4 mb-5">
+
+
+            <!-- MOOD -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="current-mood-card">
+
+                    <div class="stat-icon">
+                        😊
+                    </div>
+
+                    <div class="mood-label">
+                        Current Mood
+                    </div>
+
+                    <div class="current-mood">
+                        {{ current_mood }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SESSIONS -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-stat">
+
+                    <div class="stat-icon">
+                        🧘
+                    </div>
+
+                    <div class="stat-number">
+                        {{ progress_count }}
+                    </div>
+
+                    <div class="stat-title">
+                        Yoga Sessions
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FAVORITES -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-stat">
+
+                    <div class="stat-icon">
+                        ❤️
+                    </div>
+
+                    <div class="stat-number">
+                        {{ favorites|length }}
+                    </div>
+
+                    <div class="stat-title">
+                        Favorite Yoga
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RATING -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-stat">
+
+                    <div class="stat-icon">
+                        ⭐
+                    </div>
+
+                    <div class="stat-number">
+                        {{ average_rating }}
+                    </div>
+
+                    <div class="stat-title">
+                        Average Rating
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STREAK + PROFILE
+        ================================================= -->
+
+        <div class="row g-4 mb-5">
+
+
+            <div class="col-lg-6">
+
+                <div class="streak-card">
+
+                    <div class="streak-title">
+                        🔥 Current Yoga Streak
+                    </div>
+
+                    <div class="streak-number">
+
+                        {{ current_streak }}
+
+                        <span style="font-size:20px;">
+                            days
+                        </span>
+
+                    </div>
+
+                    <div class="streak-text">
+                        Keep practicing consistently!
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-stat">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon mb-0">
+                            👤
+                        </div>
+
+                        <div>
+
+                            <h5
+                                class="fw-bold mb-1"
+                                style="color:#2E4A32;">
+
+                                {{ name }}
+
+                            </h5>
+
+                            <p
+                                class="text-muted mb-0"
+                                style="font-size:14px;">
+
+                                {{ email }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK ACCESS
+        ================================================= -->
+
+        <h3 class="dashboard-section-title">
+            Quick Access
+        </h3>
+
+
+        <div class="row g-4 mb-5">
+
+
+            <div class="col-6 col-lg-3">
+
+                <a
+                    href="{{ url_for('mood') }}"
+                    class="quick-card">
+
+                    <div class="quick-icon">
+                        😊
+                    </div>
+
+                    <h6>
+                        Choose Mood
+                    </h6>
+
+                    <p>
+                        Select how you feel today
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <a
+                    href="{{ url_for('yoga') }}"
+                    class="quick-card">
+
+                    <div class="quick-icon">
+                        🧘
+                    </div>
+
+                    <h6>
+                        Explore Yoga
+                    </h6>
+
+                    <p>
+                        Find suitable yoga practices
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <a
+                    href="{{ url_for('daily_plan') }}"
+                    class="quick-card">
+
+                    <div class="quick-icon">
+                        📅
+                    </div>
+
+                    <h6>
+                        Daily Plan
+                    </h6>
+
+                    <p>
+                        Follow your yoga routine
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <a
+                    href="{{ url_for('breathing') }}"
+                    class="quick-card">
+
+                    <div class="quick-icon">
+                        🌬️
+                    </div>
+
+                    <h6>
+                        Breathing
+                    </h6>
+
+                    <p>
+                        Practice mindful breathing
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACHIEVEMENTS
+        ================================================= -->
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h3 class="dashboard-section-title mb-0">
+                🏆 Achievements
+            </h3>
+
+            <span class="text-muted small">
+                {{ achievements|length }} unlocked
+            </span>
+
+        </div>
+
+
+        <div class="row g-4 mb-5">
+
+            {% if achievements %}
+
+                {% for achievement in achievements %}
+
+                    <div class="col-6 col-md-4 col-lg-2">
+
+                        <div class="achievement-card">
+
+                            <div class="achievement-icon">
+                                {{ achievement.icon }}
+                            </div>
+
+                            <h5 class="fs-6">
+                                {{ achievement.title }}
+                            </h5>
+
+                            <p>
+                                {{ achievement.description }}
+                            </p>
+
+                            <span class="unlocked-badge">
+                                ✓ Unlocked
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="col-12">
+
+                    <div class="dashboard-list-card text-center">
+
+                        <div class="empty-state-icon">
+                            🌱
+                        </div>
+
+                        <h5 class="fw-bold">
+                            Your first achievement is waiting!
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            Complete your first yoga session
+                            to unlock your first badge.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =================================================
+             NEXT ACHIEVEMENT
+        ================================================= -->
+
+        <div class="next-achievement mb-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-2 text-center">
+
+                    <div class="next-icon">
+                        {{ next_achievement.icon }}
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-10">
+
+                    <h4>
+                        Next Achievement:
+                        {{ next_achievement.title }}
+                    </h4>
+
+
+                    {% if next_achievement.remaining > 0 %}
+
+                        <p class="text-muted mb-3">
+
+                            Complete
+                            <strong>
+                                {{ next_achievement.remaining }}
+                            </strong>
+                            more yoga session(s) to unlock it.
+
+                        </p>
+
+
+                        {% set target =
+                            progress_count +
+                            next_achievement.remaining
+                        %}
+
+                        {% if target > 0 %}
+
+                            {% set percentage =
+                                (progress_count * 100 / target)
+                                |round
+                                |int
+                            %}
+
+                        {% else %}
+
+                            {% set percentage = 100 %}
+
+                        {% endif %}
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style="width: {{ percentage }}%;"
+                                aria-valuenow="{{ percentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+
+                        </div>
+
+
+                        <div class="text-muted small mt-2">
+
+                            {{ percentage }}% completed
+
+                        </div>
+
+
+                    {% else %}
+
+                        <p class="text-success fw-semibold mb-0">
+
+                            🎉 You unlocked all available
+                            achievements!
+
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MOOD HISTORY + FAVORITES
+        ================================================= -->
+
+        <div class="row g-4 mb-5">
+
+
+            <!-- MOOD HISTORY -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-list-card">
+
+                    <h4 class="dashboard-section-title">
+                        😊 Mood History
+                    </h4>
+
+
+                    {% if moods %}
+
+                        {% for mood in moods[:6] %}
+
+                            <div class="history-item">
+
+                                <div class="d-flex justify-content-between gap-3">
+
+                                    <span class="history-mood">
+                                        {{ mood["mood"] }}
+                                    </span>
+
+                                    <span class="history-date">
+                                        {{ mood["selected_at"] }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-state-icon">
+                                😊
+                            </div>
+
+                            <p class="mb-0">
+                                No mood history yet.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAVORITES -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-list-card">
+
+                    <h4 class="dashboard-section-title">
+                        ❤️ Favorite Yoga
+                    </h4>
+
+
+                    {% if favorites %}
+
+                        {% for favorite in favorites[:6] %}
+
+                            <div class="favorite-item">
+
+                                <span class="favorite-name">
+                                    🧘 {{ favorite["yoga_name"] }}
+                                </span>
+
+                                <a
+                                    href="{{ url_for(
+                                        'yoga_details',
+                                        yoga=favorite['yoga_name']
+                                    ) }}"
+                                    class="btn btn-sm btn-outline-success rounded-pill">
+
+                                    View
+
+                                </a>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-state-icon">
+                                ❤️
+                            </div>
+
+                            <p class="mb-0">
+                                No favorite yoga yet.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             YOGA PROGRESS
+        ================================================= -->
+
+        <div class="dashboard-list-card mb-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h4 class="dashboard-section-title mb-0">
+                    🧘 Yoga Progress
+                </h4>
+
+                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2">
+
+                    {{ progress_count }} Completed
+
+                </span>
+
+            </div>
+
+
+            {% if progress %}
+
+                {% for item in progress[:8] %}
+
+                    <div class="history-item">
+
+                        <div class="d-flex justify-content-between align-items-center gap-3">
+
+                            <div>
+
+                                <span class="history-mood">
+                                    ✓ {{ item["yoga_name"] }}
+                                </span>
+
+                                <div class="history-date mt-1">
+                                    {{ item["completed_at"] }}
+                                </div>
+
+                            </div>
+
+                            <span class="text-success fw-bold">
+                                Completed
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🧘
+                    </div>
+
+                    <p class="mb-0">
+                        Complete your first yoga session
+                        to see your progress.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================= -->
+
+        <div class="dashboard-list-card">
+
+            <div class="d-flex justify-content-between align-items-center mb-3 gap-3">
+
+                <h4 class="dashboard-section-title mb-0">
+                    ⭐ Your Feedback
+                </h4>
+
+                <a
+                    href="{{ url_for('feedback') }}"
+                    class="btn green-btn rounded-pill px-4">
+
+                    Give Feedback
+
+                </a>
+
+            </div>
+
+
+            {% if feedbacks %}
+
+                {% for feedback in feedbacks[:5] %}
+
+                    <div class="history-item">
+
+                        <div class="d-flex justify-content-between gap-3">
+
+                            <span class="fw-bold">
+
+                                {% for i in range(feedback["rating"]) %}
+                                    ⭐
+                                {% endfor %}
+
+                            </span>
+
+                            <span class="history-date">
+                                {{ feedback["submitted_at"] }}
+                            </span>
+
+                        </div>
+
+
+                        {% if feedback["comment"] %}
+
+                            <p class="text-muted mt-2 mb-0">
+
+                                {{ feedback["comment"] }}
+
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ⭐
+                    </div>
+
+                    <p class="mb-0">
+                        You haven't submitted any feedback yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="bg-dark text-white py-4">
+
+    <div class="container text-center">
+
+        <h5 class="fw-bold">
+            🌿 YogaMood
+        </h5>
+
+        <p class="text-white-50 mb-2">
+            Mood-based yoga recommendation website
+        </p>
+
+        <small class="text-white-50">
+            © 2026 YogaMood. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- YogaMood JS -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+</body>
+
+</html>

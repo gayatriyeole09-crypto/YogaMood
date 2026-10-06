@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yoga Video Library | YogaMood</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- YogaMood CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        /* =========================================
+           VIDEO CARD DESIGN
+        ========================================= */
+
+        .video-card {
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =========================================
+           VIDEO IMAGE
+        ========================================= */
+
+        .video-image {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+            background: #f0fdf4;
+        }
+
+        .video-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-image img {
+            transform: scale(1.05);
+        }
+
+
+        /* =========================================
+           CARD BODY
+        ========================================= */
+
+        .video-card .card-body {
+            padding: 24px;
+        }
+
+        .video-card h4 {
+            color: #12372a;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+
+        .video-card p {
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           WATCH BUTTON
+        ========================================= */
+
+        .watch-btn {
+            border-radius: 30px;
+            font-weight: 600;
+            padding: 10px 18px;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .video-image {
+                height: 210px;
+            }
+
+            .video-card .card-body {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top yogamood-navbar">
+
+    <div class="container">
+
+        <!-- Logo -->
+
+        <a
+            class="navbar-brand fw-bold"
+            href="{{ url_for('home') }}"
+        >
+            🌿 YogaMood
+        </a>
+
+
+        <!-- Mobile Menu -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- Navigation -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav"
+        >
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- Home -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('home') }}"
+                    >
+                        Home
+                    </a>
+
+                </li>
+
+
+                <!-- Mood -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('mood') }}"
+                    >
+                        Mood
+                    </a>
+
+                </li>
+
+
+                <!-- Yoga -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('yoga') }}"
+                    >
+                        Yoga
+                    </a>
+
+                </li>
+
+
+                <!-- Videos -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{{ url_for('videos') }}"
+                    >
+                        Videos
+                    </a>
+
+                </li>
+
+
+                <!-- Breathing -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('breathing') }}"
+                    >
+                        Breathing
+                    </a>
+
+                </li>
+
+
+                <!-- About -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('about') }}"
+                    >
+                        About
+                    </a>
+
+                </li>
+
+
+                {% if session.get("user_id") %}
+
+
+                    <!-- User Name -->
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <span class="nav-link fw-semibold">
+                            👋 Hi, {{ session.get("user_name") }}
+                        </span>
+
+                    </li>
+
+
+                    <!-- Dashboard -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="btn btn-outline-light rounded-pill px-4"
+                        >
+                            Dashboard
+                        </a>
+
+                    </li>
+
+
+                    <!-- Logout -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('logout') }}"
+                            class="btn btn-success rounded-pill px-4"
+                        >
+                            Logout
+                        </a>
+
+                    </li>
+
+
+                {% else %}
+
+
+                    <!-- Login -->
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="btn btn-outline-light rounded-pill px-4"
+                        >
+                            Login
+                        </a>
+
+                    </li>
+
+
+                    <!-- Sign Up -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{{ url_for('signup') }}"
+                            class="btn btn-success rounded-pill px-4"
+                        >
+                            Sign Up
+                        </a>
+
+                    </li>
+
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<section
+    class="py-5"
+    style="
+        background:
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #ecfdf5
+        );
+    "
+>
+
+    <div class="container text-center py-4">
+
+        <span
+            class="
+                badge
+                bg-success-subtle
+                text-success
+                px-3
+                py-2
+                rounded-pill
+                mb-3
+            "
+        >
+            🎥 Yoga Video Library
+        </span>
+
+
+        <h1 class="display-5 fw-bold mb-3">
+
+            Learn Yoga With Videos
+
+        </h1>
+
+
+        <p class="lead text-muted">
+
+            Explore yoga practices that match your mood and goals.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SEARCH + FILTER
+========================================================= -->
+
+<section class="py-4 bg-white">
+
+    <div class="container">
+
+        <div class="row g-3 align-items-center">
+
+
+            <!-- Search -->
+
+            <div class="col-lg-7">
+
+                <div class="input-group">
+
+                    <span class="input-group-text bg-white">
+                        🔎
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control"
+                        placeholder="Search yoga videos..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="col-lg-5">
+
+                <select
+                    id="categoryFilter"
+                    class="form-select"
+                >
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="stress">
+                        Stress Relief
+                    </option>
+
+                    <option value="beginner">
+                        Beginner Yoga
+                    </option>
+
+                    <option value="flexibility">
+                        Flexibility
+                    </option>
+
+                    <option value="fitness">
+                        Yoga for Fitness
+                    </option>
+
+                    <option value="sleep">
+                        Relaxation & Sleep
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VIDEO LIBRARY
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div
+            class="row g-4"
+            id="videoContainer"
+        >
+
+
+            <!-- =================================================
+                 VIDEO 1 - STRESS
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="stress relief yoga"
+                data-category="stress"
+            >
+
+                <div class="video-card">
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/stress-yoga.webp') }}"
+                            alt="Yoga for Stress"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-success-subtle
+                                text-success
+                                mb-2
+                            "
+                        >
+                            Stress Relief
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Gentle Yoga for Stress
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            A gentle yoga session with simple movements
+                            for a calm practice.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=gentle+yoga+for+stress+relief"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 2 - BEGINNER
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="beginner yoga"
+                data-category="beginner"
+            >
+
+                <div class="video-card">
+
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/beginner-yoga.webp') }}"
+                            alt="Beginner Yoga"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-primary-subtle
+                                text-primary
+                                mb-2
+                            "
+                        >
+                            Beginner
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Beginner Yoga Practice
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            Learn simple yoga poses suitable for a
+                            beginner-level practice.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=beginner+yoga+for+adults"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 3 - FLEXIBILITY
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="flexibility yoga stretching"
+                data-category="flexibility"
+            >
+
+                <div class="video-card">
+
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/flexibility-yoga.webp') }}"
+                            alt="Flexibility Yoga"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-warning-subtle
+                                text-warning-emphasis
+                                mb-2
+                            "
+                        >
+                            Flexibility
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Gentle Flexibility Yoga
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            Explore gentle stretching and
+                            flexibility-focused yoga movements.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=gentle+yoga+for+flexibility"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 4 - FITNESS
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="yoga fitness workout"
+                data-category="fitness"
+            >
+
+                <div class="video-card">
+
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/fitness-yoga.webp') }}"
+                            alt="Yoga for Fitness"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-primary-subtle
+                                text-primary
+                                mb-2
+                            "
+                        >
+                            Fitness
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Yoga for Fitness
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            Explore an active yoga sequence for movement
+                            and fitness practice.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=yoga+for+fitness+beginner"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 5 - SLEEP
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="sleep relaxation yoga"
+                data-category="sleep"
+            >
+
+                <div class="video-card">
+
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/sleep-yoga.webp') }}"
+                            alt="Yoga for Better Sleep"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-primary-subtle
+                                text-primary
+                                mb-2
+                            "
+                        >
+                            Relaxation
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Relaxing Yoga Before Sleep
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            A slow and gentle yoga practice for a quiet
+                            evening routine.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=relaxing+yoga+before+sleep"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 6 - MORNING
+            ================================================= -->
+
+            <div
+                class="col-md-6 col-lg-4 video-item"
+                data-title="morning yoga beginner"
+                data-category="beginner"
+            >
+
+                <div class="video-card">
+
+
+                    <div class="video-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/relaxation-yoga.webp') }}"
+                            alt="Morning Yoga"
+                        >
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <span
+                            class="
+                                badge
+                                bg-info-subtle
+                                text-info-emphasis
+                                mb-2
+                            "
+                        >
+                            Beginner
+                        </span>
+
+
+                        <h4 class="fw-bold">
+
+                            Morning Yoga Routine
+
+                        </h4>
+
+
+                        <p class="text-muted">
+
+                            Start your day with a simple and comfortable
+                            yoga routine.
+
+                        </p>
+
+
+                        <a
+                            href="https://www.youtube.com/results?search_query=beginner+morning+yoga"
+                            target="_blank"
+                            class="btn btn-success watch-btn w-100"
+                        >
+                            ▶ Watch on YouTube
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             NO RESULT MESSAGE
+        ====================================================== -->
+
+        <div
+            id="noResults"
+            class="text-center py-5"
+            style="display:none;"
+        >
+
+            <div style="font-size:60px;">
+                🔎
+            </div>
+
+
+            <h4 class="fw-bold mt-3">
+
+                No videos found
+
+            </h4>
+
+
+            <p class="text-muted">
+
+                Try another search word or category.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BREATHING CTA
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div
+            class="rounded-4 p-4 p-md-5 text-center"
+            style="background:#f0fdf4;"
+        >
+
+
+            <div style="font-size:50px;">
+                🫁
+            </div>
+
+
+            <h2 class="fw-bold mt-3">
+
+                Need a More Relaxing Practice?
+
+            </h2>
+
+
+            <p class="text-muted">
+
+                Try our guided breathing exercise and relaxation timer.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('breathing') }}"
+                class="btn btn-success rounded-pill px-4"
+            >
+
+                Try Breathing Exercise →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-dark text-white py-4">
+
+    <div class="container text-center">
+
+        <h5 class="fw-bold">
+
+            🌿 YogaMood
+
+        </h5>
+
+
+        <p class="text-white-50 mb-2">
+
+            Mood-based yoga recommendation website
+
+        </p>
+
+
+        <small class="text-white-50">
+
+            © 2026 YogaMood. All rights reserved.
+
+        </small>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+>
+</script>
+
+
+
+<!-- =========================================================
+     YOGAMOOD JS
+========================================================= -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+>
+</script>
+
+
+
+<!-- =========================================================
+     SEARCH + FILTER SCRIPT
+========================================================= -->
+
+<script>
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+const categoryFilter =
+    document.getElementById("categoryFilter");
+
+
+const videoItems =
+    document.querySelectorAll(".video-item");
+
+
+const noResults =
+    document.getElementById("noResults");
+
+
+
+function filterVideos() {
+
+    const searchText =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    const selectedCategory =
+        categoryFilter.value;
+
+
+    let visibleCount = 0;
+
+
+
+    videoItems.forEach(function(item) {
+
+        const title =
+            item.dataset.title.toLowerCase();
+
+
+        const category =
+            item.dataset.category.toLowerCase();
+
+
+        const matchesSearch =
+            title.includes(searchText);
+
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            category === selectedCategory;
+
+
+
+        if (matchesSearch && matchesCategory) {
+
+            item.style.display = "";
+
+            visibleCount++;
+
+        }
+
+        else {
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+
+
+    if (visibleCount === 0) {
+
+        noResults.style.display = "block";
+
+    }
+
+    else {
+
+        noResults.style.display = "none";
+
+    }
+
+}
+
+
+
+searchInput.addEventListener(
+    "input",
+    filterVideos
+);
+
+
+categoryFilter.addEventListener(
+    "change",
+    filterVideos
+);
+
+</script>
+
+
+</body>
+
+</html>

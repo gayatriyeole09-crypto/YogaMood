@@ -1,4 +1,13 @@
 {
   "version": "0.2",
-  "words": ["yogamood", "linkpython", "rgba", "stylesheet", "webp"]
+  "words": [
+    "yogamood",
+    "linkpython",
+    "rgba",
+    "stylesheet",
+    "webp"
+  ],
+  "ignoreWords": [
+    "tojson"
+  ]
 }

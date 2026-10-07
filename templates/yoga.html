@@ -736,6 +736,7 @@ recommendations.forEach(function(yoga) {
                         src="{{ url_for('static', filename='images/') }}${yoga.image}"
                         alt="${yoga.name}"
                         loading="lazy"
+                        onerror="this.src='{{ url_for('static', filename='images/yoga.webp') }}'"
                     >
 
                 </div>

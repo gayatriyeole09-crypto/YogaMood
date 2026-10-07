@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_language }}">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>YogaMood | Your Mood. Your Yoga. Your Balance.</title>
 
@@ -16,8 +13,7 @@
         rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <linkpython app.py
-    
+    <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -27,131 +23,188 @@
         href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
+        /* ================= SPLASH SCREEN ================= */
 
-/* ================= SPLASH SCREEN ================= */
+        .yogamood-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
 
-.yogamood-splash {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
+            background:
+                linear-gradient(
+                    rgba(18, 55, 42, 0.78),
+                    rgba(18, 55, 42, 0.88)
+                ),
+                url("{{ url_for('static', filename='images/yoga.webp') }}");
 
-    background:
-        linear-gradient(
-            rgba(18, 55, 42, 0.78),
-            rgba(18, 55, 42, 0.88)
-        ),
-        url("{{ url_for('static', filename='images/yoga.webp') }}");
+            background-size: cover;
+            background-position: center;
 
-    background-size: cover;
-    background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            text-align: center;
+            color: white;
 
-    text-align: center;
-    color: white;
-
-    transition: opacity 0.7s ease,
+            transition:
+                opacity 0.7s ease,
                 visibility 0.7s ease;
-}
+        }
 
-.yogamood-splash.hide {
-    opacity: 0;
-    visibility: hidden;
-}
+        .yogamood-splash.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
 
-.splash-content {
-    width: 90%;
-    max-width: 500px;
-    animation: splashFade 1.2s ease;
-}
+        .splash-content {
+            width: 90%;
+            max-width: 500px;
+            animation: splashFade 1.2s ease;
+        }
 
-.splash-image {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
+        .splash-image {
+            width: 180px;
+            height: 180px;
 
-    border: 5px solid rgba(255,255,255,0.85);
+            object-fit: cover;
+            border-radius: 50%;
 
-    box-shadow:
-        0 15px 45px rgba(0,0,0,0.35);
+            border: 5px solid rgba(255,255,255,0.85);
 
-    margin-bottom: 25px;
-}
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.35);
 
-.splash-title {
-    font-size: 44px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 18px;
-}
+            margin-bottom: 25px;
+        }
 
-.splash-tagline {
-    font-size: 21px;
-    line-height: 1.7;
-    color: #e8f5e9;
-    margin: 0;
-}
+        .splash-title {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
 
-.splash-loader {
-    width: 55px;
-    height: 55px;
-    margin: 25px auto 0;
+        .splash-tagline {
+            font-size: 21px;
+            line-height: 1.7;
+            color: #e8f5e9;
+            margin: 0;
+        }
 
-    border: 4px solid rgba(255,255,255,0.3);
-    border-top: 4px solid white;
+        .splash-loader {
+            width: 55px;
+            height: 55px;
 
-    border-radius: 50%;
+            margin: 25px auto 0;
 
-    animation: spin 1s linear infinite;
-}
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
 
-@keyframes splashFade {
+            border-radius: 50%;
 
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(15px);
-    }
+            animation: spin 1s linear infinite;
+        }
 
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+        @keyframes splashFade {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(15px);
+            }
 
-}
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
-@keyframes spin {
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-    to {
-        transform: rotate(360deg);
-    }
+        /* ================= LANGUAGE DROPDOWN ================= */
 
-}
+        .language-dropdown .dropdown-menu {
+            min-width: 150px;
+            border: none;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .language-dropdown .dropdown-item {
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-weight: 500;
+        }
+
+        .language-dropdown .dropdown-item:hover {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* ================= HERO ================= */
+
+        .home-hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f0fdf4,
+                    #ecfdf5
+                );
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+        }
+
+        .yoga-symbol-image {
+            width: 100%;
+            max-width: 330px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 25px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 576px) {
+
+            .splash-image {
+                width: 140px;
+                height: 140px;
+            }
+
+            .splash-title {
+                font-size: 34px;
+            }
+
+            .splash-tagline {
+                font-size: 18px;
+            }
+
+            .hero-card {
+                padding: 22px;
+            }
+
+            .yoga-symbol-image {
+                height: 230px;
+            }
+        }
+    </style>
+</head>
 
 
-/* ================= MOBILE ================= */
+<body>
 
-@media (max-width: 576px) {
-
-    .splash-image {
-        width: 140px;
-        height: 140px;
-    }
-
-    .splash-title {
-        font-size: 34px;
-    }
-
-    .splash-tagline {
-        font-size: 18px;
-    }
-
-}
-</style>
-
-<!-- ================= SPLASH SCREEN ================= -->
+<!-- =========================================================
+     SPLASH SCREEN
+========================================================= -->
 
 <div id="yogamoodSplash" class="yogamood-splash">
 
@@ -179,12 +232,17 @@
 
 </div>
 
-<!-- Soft Om Sound -->
+
+<!-- =========================================================
+     SOFT OM SOUND
+========================================================= -->
+
 <audio id="omSound" preload="auto">
     <source
         src="{{ url_for('static', filename='audio/om.mp3') }}"
         type="audio/mpeg">
 </audio>
+
 
 <!-- =========================================================
      NAVBAR
@@ -196,8 +254,9 @@
 
         <!-- Logo -->
 
-        <a class="navbar-brand fw-bold"
-           href="{{ url_for('home') }}">
+        <a
+            class="navbar-brand fw-bold"
+            href="{{ url_for('home') }}">
 
             🌿 YogaMood
 
@@ -222,8 +281,9 @@
 
         <!-- Navigation -->
 
-        <div class="collapse navbar-collapse"
-             id="navbarNav">
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav">
 
             <ul class="navbar-nav ms-auto align-items-lg-center">
 
@@ -232,10 +292,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link active"
-                       href="{{ url_for('home') }}">
+                    <a
+                        class="nav-link active"
+                        href="{{ url_for('home') }}">
 
-                        Home
+                        {% if current_language == "mr" %}
+                            मुख्यपृष्ठ
+                        {% elif current_language == "hi" %}
+                            होम
+                        {% else %}
+                            Home
+                        {% endif %}
 
                     </a>
 
@@ -246,10 +313,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="{{ url_for('mood') }}">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('mood') }}">
 
-                        Mood
+                        {% if current_language == "mr" %}
+                            मूड
+                        {% elif current_language == "hi" %}
+                            मूड
+                        {% else %}
+                            Mood
+                        {% endif %}
 
                     </a>
 
@@ -260,10 +334,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="{{ url_for('yoga') }}">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('yoga') }}">
 
-                        Yoga
+                        {% if current_language == "mr" %}
+                            योग
+                        {% elif current_language == "hi" %}
+                            योग
+                        {% else %}
+                            Yoga
+                        {% endif %}
 
                     </a>
 
@@ -274,10 +355,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="{{ url_for('videos') }}">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('videos') }}">
 
-                        Videos
+                        {% if current_language == "mr" %}
+                            व्हिडिओ
+                        {% elif current_language == "hi" %}
+                            वीडियो
+                        {% else %}
+                            Videos
+                        {% endif %}
 
                     </a>
 
@@ -288,10 +376,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="{{ url_for('breathing') }}">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('breathing') }}">
 
-                        Breathing
+                        {% if current_language == "mr" %}
+                            श्वसन
+                        {% elif current_language == "hi" %}
+                            श्वसन
+                        {% else %}
+                            Breathing
+                        {% endif %}
 
                     </a>
 
@@ -302,10 +397,17 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="{{ url_for('about') }}">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('about') }}">
 
-                        About
+                        {% if current_language == "mr" %}
+                            माहिती
+                        {% elif current_language == "hi" %}
+                            हमारे बारे में
+                        {% else %}
+                            About
+                        {% endif %}
 
                     </a>
 
@@ -313,7 +415,53 @@
 
 
                 <!-- =================================================
-                     LOGIN USER
+                     LANGUAGE
+                ================================================= -->
+
+                <li class="nav-item dropdown language-dropdown ms-lg-2">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        🌐 {{ languages[current_language] }}
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        {% for code, name in languages.items() %}
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{{ url_for('set_language', language=code) }}">
+
+                                {% if code == "en" %}
+                                    🇬🇧 English
+                                {% elif code == "mr" %}
+                                    🇮🇳 मराठी
+                                {% elif code == "hi" %}
+                                    🇮🇳 हिंदी
+                                {% endif %}
+
+                            </a>
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </li>
+
+
+                <!-- =================================================
+                     LOGGED IN USER
                 ================================================= -->
 
                 {% if logged_in %}
@@ -325,7 +473,17 @@
 
                         <span class="nav-link fw-semibold">
 
-                            👋 Hi, {{ user_name }}
+                            👋
+
+                            {% if current_language == "mr" %}
+                                नमस्कार,
+                            {% elif current_language == "hi" %}
+                                नमस्ते,
+                            {% else %}
+                                Hi,
+                            {% endif %}
+
+                            {{ user_name }}
 
                         </span>
 
@@ -340,7 +498,13 @@
                             href="{{ url_for('dashboard') }}"
                             class="btn btn-outline-light rounded-pill px-4">
 
-                            Dashboard
+                            {% if current_language == "mr" %}
+                                डॅशबोर्ड
+                            {% elif current_language == "hi" %}
+                                डैशबोर्ड
+                            {% else %}
+                                Dashboard
+                            {% endif %}
 
                         </a>
 
@@ -355,7 +519,13 @@
                             href="{{ url_for('logout') }}"
                             class="btn btn-success rounded-pill px-4">
 
-                            Logout
+                            {% if current_language == "mr" %}
+                                लॉगआउट
+                            {% elif current_language == "hi" %}
+                                लॉगआउट
+                            {% else %}
+                                Logout
+                            {% endif %}
 
                         </a>
 
@@ -373,7 +543,13 @@
                             href="{{ url_for('login') }}"
                             class="btn btn-outline-light rounded-pill px-4">
 
-                            Login
+                            {% if current_language == "mr" %}
+                                लॉगिन
+                            {% elif current_language == "hi" %}
+                                लॉगिन
+                            {% else %}
+                                Login
+                            {% endif %}
 
                         </a>
 
@@ -388,7 +564,13 @@
                             href="{{ url_for('signup') }}"
                             class="btn btn-success rounded-pill px-4">
 
-                            Sign Up
+                            {% if current_language == "mr" %}
+                                साइन अप
+                            {% elif current_language == "hi" %}
+                                साइन अप
+                            {% else %}
+                                Sign Up
+                            {% endif %}
 
                         </a>
 
@@ -407,21 +589,11 @@
 </nav>
 
 
-
 <!-- =========================================================
      HERO SECTION
 ========================================================= -->
 
-<section
-    class="py-5"
-    style="
-        background:
-        linear-gradient(
-            135deg,
-            #f0fdf4,
-            #ecfdf5
-        );
-    ">
+<section class="home-hero py-5">
 
     <div class="container">
 
@@ -444,7 +616,15 @@
                         mb-3
                     ">
 
-                    🌿 Personalized Yoga Experience
+                    🌿
+
+                    {% if current_language == "mr" %}
+                        वैयक्तिक योग अनुभव
+                    {% elif current_language == "hi" %}
+                        व्यक्तिगत योग अनुभव
+                    {% else %}
+                        Personalized Yoga Experience
+                    {% endif %}
 
                 </span>
 
@@ -456,23 +636,57 @@
                         lh-sm
                     ">
 
-                    Your Mood.
-                    <span class="text-success">
-                        Your Yoga.
-                    </span>
+                    {% if current_language == "mr" %}
 
-                    <br>
+                        तुमचा मूड.
+                        <span class="text-success">
+                            तुमचा योग.
+                        </span>
+                        <br>
+                        तुमचा समतोल.
 
-                    Your Balance.
+                    {% elif current_language == "hi" %}
+
+                        आपका मूड.
+                        <span class="text-success">
+                            आपका योग.
+                        </span>
+                        <br>
+                        आपका संतुलन.
+
+                    {% else %}
+
+                        Your Mood.
+                        <span class="text-success">
+                            Your Yoga.
+                        </span>
+                        <br>
+                        Your Balance.
+
+                    {% endif %}
 
                 </h1>
 
 
                 <p class="lead text-muted mt-4">
 
-                    Tell YogaMood how you are feeling today and
-                    discover suitable yoga practices, videos and
-                    breathing exercises.
+                    {% if current_language == "mr" %}
+
+                        आज तुम्हाला कसे वाटत आहे ते YogaMood ला सांगा
+                        आणि योग्य योग, व्हिडिओ आणि श्वसन व्यायाम शोधा.
+
+                    {% elif current_language == "hi" %}
+
+                        आज आप कैसा महसूस कर रहे हैं यह YogaMood को बताएं
+                        और उपयुक्त योग, वीडियो और श्वसन अभ्यास खोजें.
+
+                    {% else %}
+
+                        Tell YogaMood how you are feeling today and
+                        discover suitable yoga practices, videos and
+                        breathing exercises.
+
+                    {% endif %}
 
                 </p>
 
@@ -499,7 +713,14 @@
                             px-4
                         ">
 
-                        Find My Yoga
+                        {% if current_language == "mr" %}
+                            माझा योग शोधा
+                        {% elif current_language == "hi" %}
+                            मेरा योग खोजें
+                        {% else %}
+                            Find My Yoga
+                        {% endif %}
+
                         <i class="bi bi-arrow-right ms-2"></i>
 
                     </a>
@@ -515,15 +736,20 @@
                             px-4
                         ">
 
-                        Explore Videos
+                        {% if current_language == "mr" %}
+                            व्हिडिओ पहा
+                        {% elif current_language == "hi" %}
+                            वीडियो देखें
+                        {% else %}
+                            Explore Videos
+                        {% endif %}
 
                     </a>
-
 
                 </div>
 
 
-                <!-- Small Highlights -->
+                <!-- Highlights -->
 
                 <div
                     class="
@@ -534,11 +760,18 @@
                         text-muted
                     ">
 
+
                     <span>
 
                         <i class="bi bi-check-circle-fill text-success me-1"></i>
 
-                        Beginner Friendly
+                        {% if current_language == "mr" %}
+                            नवशिक्यांसाठी योग्य
+                        {% elif current_language == "hi" %}
+                            शुरुआती लोगों के लिए
+                        {% else %}
+                            Beginner Friendly
+                        {% endif %}
 
                     </span>
 
@@ -547,7 +780,13 @@
 
                         <i class="bi bi-check-circle-fill text-success me-1"></i>
 
-                        Personalized
+                        {% if current_language == "mr" %}
+                            वैयक्तिकृत
+                        {% elif current_language == "hi" %}
+                            व्यक्तिगत
+                        {% else %}
+                            Personalized
+                        {% endif %}
 
                     </span>
 
@@ -556,12 +795,18 @@
 
                         <i class="bi bi-check-circle-fill text-success me-1"></i>
 
-                        Mobile Friendly
+                        {% if current_language == "mr" %}
+                            मोबाईलसाठी योग्य
+                        {% elif current_language == "hi" %}
+                            मोबाइल फ्रेंडली
+                        {% else %}
+                            Mobile Friendly
+                        {% endif %}
 
                     </span>
+
 
                 </div>
-
 
             </div>
 
@@ -570,33 +815,42 @@
 
             <div class="col-lg-5 text-center">
 
+                <div class="hero-card">
 
-                <div
-                    class="
-                        bg-white
-                        rounded-5
-                        shadow-sm
-                        p-4
-                    ">
 
                     <div class="yoga-symbol">
+
                         <img
-                        src="{{ url_for('static', filename='images/yoga.webp') }}"
-                        alt="Yoga Meditation"
-                        class="yoga-symbol-image"
+                            src="{{ url_for('static', filename='images/yoga.webp') }}"
+                            alt="Yoga Meditation"
+                            class="yoga-symbol-image"
                         >
+
                     </div>
+
 
                     <h3 class="fw-bold mt-4">
 
-                        How are you feeling today?
+                        {% if current_language == "mr" %}
+                            आज तुम्हाला कसे वाटत आहे?
+                        {% elif current_language == "hi" %}
+                            आज आप कैसा महसूस कर रहे हैं?
+                        {% else %}
+                            How are you feeling today?
+                        {% endif %}
 
                     </h3>
 
 
                     <p class="text-muted">
 
-                        Choose a mood to get started.
+                        {% if current_language == "mr" %}
+                            सुरुवात करण्यासाठी तुमचा मूड निवडा.
+                        {% elif current_language == "hi" %}
+                            शुरू करने के लिए अपना मूड चुनें.
+                        {% else %}
+                            Choose a mood to get started.
+                        {% endif %}
 
                     </p>
 
@@ -610,14 +864,19 @@
                             px-4
                         ">
 
-                        Choose Your Mood
+                        {% if current_language == "mr" %}
+                            तुमचा मूड निवडा
+                        {% elif current_language == "hi" %}
+                            अपना मूड चुनें
+                        {% else %}
+                            Choose Your Mood
+                        {% endif %}
 
                     </a>
 
                 </div>
 
             </div>
-
 
         </div>
 
@@ -627,7 +886,7 @@
 
 
 <!-- =========================================================
-     CTA
+     CTA SECTION
 ========================================================= -->
 
 <section class="py-5">
@@ -650,13 +909,9 @@
                 );
             ">
 
-            <div
-                style="
-                    font-size:60px;
-                ">
 
+            <div style="font-size:60px;">
                 🌿
-
             </div>
 
 
@@ -667,7 +922,13 @@
                     mt-3
                 ">
 
-                Ready to Find Your Yoga?
+                {% if current_language == "mr" %}
+                    तुमचा योग शोधण्यासाठी तयार आहात?
+                {% elif current_language == "hi" %}
+                    अपना योग खोजने के लिए तैयार हैं?
+                {% else %}
+                    Ready to Find Your Yoga?
+                {% endif %}
 
             </h2>
 
@@ -680,8 +941,22 @@
                 "
                 style="max-width:650px;">
 
-                Select your mood and let YogaMood guide you toward
-                a suitable yoga and relaxation practice.
+                {% if current_language == "mr" %}
+
+                    तुमचा मूड निवडा आणि YogaMood ला योग्य योग
+                    आणि relaxation practice निवडण्यात मदत करू द्या.
+
+                {% elif current_language == "hi" %}
+
+                    अपना मूड चुनें और YogaMood को आपके लिए
+                    उपयुक्त योग और relaxation practice चुनने दें.
+
+                {% else %}
+
+                    Select your mood and let YogaMood guide you toward
+                    a suitable yoga and relaxation practice.
+
+                {% endif %}
 
             </p>
 
@@ -696,7 +971,14 @@
                     px-5
                 ">
 
-                Get Started
+                {% if current_language == "mr" %}
+                    सुरुवात करा
+                {% elif current_language == "hi" %}
+                    शुरू करें
+                {% else %}
+                    Get Started
+                {% endif %}
+
                 <i class="bi bi-arrow-right ms-2"></i>
 
             </a>
@@ -708,7 +990,6 @@
 </section>
 
 
-
 <!-- =========================================================
      FOOTER
 ========================================================= -->
@@ -716,7 +997,6 @@
 <footer class="bg-dark text-white py-5">
 
     <div class="container">
-
 
         <div class="row g-4">
 
@@ -726,17 +1006,31 @@
             <div class="col-lg-5">
 
                 <h4 class="fw-bold">
-
                     🌿 YogaMood
-
                 </h4>
 
 
                 <p class="text-white-50">
 
-                    A mood-based yoga website that helps users
-                    discover suitable yoga, breathing and relaxation
-                    activities.
+                    {% if current_language == "mr" %}
+
+                        मूडवर आधारित योग वेबसाइट जी वापरकर्त्यांना
+                        योग्य योग, श्वसन आणि relaxation activities
+                        शोधण्यात मदत करते.
+
+                    {% elif current_language == "hi" %}
+
+                        मूड आधारित योग वेबसाइट जो उपयोगकर्ताओं को
+                        उपयुक्त योग, श्वसन और relaxation activities
+                        खोजने में मदद करती है.
+
+                    {% else %}
+
+                        A mood-based yoga website that helps users
+                        discover suitable yoga, breathing and relaxation
+                        activities.
+
+                    {% endif %}
 
                 </p>
 
@@ -749,12 +1043,19 @@
 
                 <h6 class="fw-bold mb-3">
 
-                    Quick Links
+                    {% if current_language == "mr" %}
+                        Quick Links
+                    {% elif current_language == "hi" %}
+                        Quick Links
+                    {% else %}
+                        Quick Links
+                    {% endif %}
 
                 </h6>
 
 
                 <div class="d-flex flex-column gap-2">
+
 
                     <a
                         href="{{ url_for('home') }}"
@@ -796,18 +1097,25 @@
             </div>
 
 
-            <!-- More -->
+            <!-- Explore -->
 
             <div class="col-6 col-lg-4">
 
                 <h6 class="fw-bold mb-3">
 
-                    Explore
+                    {% if current_language == "mr" %}
+                        Explore
+                    {% elif current_language == "hi" %}
+                        Explore
+                    {% else %}
+                        Explore
+                    {% endif %}
 
                 </h6>
 
 
                 <div class="d-flex flex-column gap-2">
+
 
                     <a
                         href="{{ url_for('breathing') }}"
@@ -862,7 +1170,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -878,6 +1185,7 @@
                 gap-2
             ">
 
+
             <small class="text-white-50">
 
                 © 2026 YogaMood. All rights reserved.
@@ -891,12 +1199,12 @@
 
             </small>
 
+
         </div>
 
     </div>
 
 </footer>
-
 
 
 <!-- =========================================================
@@ -916,6 +1224,11 @@
     src="{{ url_for('static', filename='js/script.js') }}">
 </script>
 
+
+<!-- =========================================================
+     SPLASH SCRIPT
+========================================================= -->
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -923,16 +1236,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const splash =
         document.getElementById("yogamoodSplash");
 
-    setTimeout(function () {
+    if (splash) {
 
-        splash.classList.add("hide");
+        setTimeout(function () {
 
-    }, 2500);
+            splash.classList.add("hide");
+
+        }, 2500);
+
+    }
 
 });
 
 </script>
 
-</body>
 
+</body>
 </html>

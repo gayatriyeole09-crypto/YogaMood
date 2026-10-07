@@ -835,3 +835,612 @@ button.mood-card {
     }
 
 }
+
+/* =========================================
+   DAILY YOGA PLAN
+========================================= */
+
+.daily-plan-hero {
+    background: linear-gradient(
+        135deg,
+        #e8f5e9,
+        #f5fbf6
+    );
+    padding: 85px 0;
+}
+
+.daily-plan-hero-content {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.daily-plan-label,
+.section-small-title {
+    display: inline-block;
+    color: #2e7d32;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.daily-plan-hero h1 {
+    color: #2f4f34;
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.daily-plan-hero p {
+    color: #5f6f62;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto 25px;
+}
+
+.daily-plan-mood {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 12px 22px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.10);
+    color: #5f6f62;
+}
+
+.daily-plan-mood strong {
+    color: #2e7d32;
+}
+
+.daily-plan-section {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.daily-plan-section h2,
+.daily-plan-info h2 {
+    color: #2f4f34;
+    font-weight: 750;
+    font-size: 36px;
+}
+
+.daily-pose-card {
+    height: 100%;
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid #e5eee6;
+    box-shadow: 0 10px 30px rgba(40, 70, 45, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.daily-pose-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(40, 70, 45, 0.14);
+}
+
+.daily-pose-number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+    background: #2e7d32;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.daily-pose-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #e8f5e9;
+}
+
+.daily-pose-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.daily-pose-card:hover .daily-pose-image img {
+    transform: scale(1.05);
+}
+
+.daily-pose-content {
+    padding: 25px;
+}
+
+.daily-pose-content h3 {
+    color: #2f4f34;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.pose-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.daily-pose-content p {
+    color: #68756b;
+    line-height: 1.7;
+    min-height: 70px;
+}
+
+.daily-pose-btn {
+    width: 100%;
+    background: #4f6f52;
+    color: white !important;
+    border-radius: 12px;
+    padding: 11px 18px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.daily-pose-btn:hover {
+    background: #2e7d32;
+    color: white !important;
+}
+
+.btn-start-plan {
+    background: #2e7d32;
+    color: white !important;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.20);
+    transition: all 0.3s ease;
+}
+
+.btn-start-plan:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+    color: white !important;
+}
+
+.daily-plan-info {
+    padding: 80px 0;
+    background: #f7faf7;
+}
+
+.daily-plan-info p {
+    color: #66736a;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.info-points {
+    margin-top: 25px;
+}
+
+.info-points div {
+    color: #4d5d51;
+    margin-bottom: 13px;
+    font-weight: 500;
+}
+
+.info-points i {
+    color: #2e7d32;
+    margin-right: 8px;
+}
+
+.daily-plan-image-box {
+    height: 390px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(40, 70, 45, 0.12);
+}
+
+.daily-plan-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.daily-plan-footer {
+    background: #4f6f52;
+    color: white;
+    padding: 45px 0;
+}
+
+.daily-plan-footer h4 {
+    font-weight: 700;
+}
+
+.daily-plan-footer p {
+    color: #e8f5e9;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .daily-plan-hero {
+        padding: 60px 20px;
+    }
+
+    .daily-plan-hero h1 {
+        font-size: 34px;
+    }
+
+    .daily-plan-hero p {
+        font-size: 16px;
+    }
+
+    .daily-plan-section,
+    .daily-plan-info {
+        padding: 60px 20px;
+    }
+
+    .daily-plan-section h2,
+    .daily-plan-info h2 {
+        font-size: 29px;
+    }
+
+    .daily-pose-image {
+        height: 230px;
+    }
+
+    .daily-plan-image-box {
+        height: 280px;
+    }
+
+    .daily-plan-mood {
+        font-size: 14px;
+    }
+}
+
+/* =========================================
+   YOGA DETAILS PAGE
+========================================= */
+
+.yoga-detail-hero {
+    background: linear-gradient(
+        135deg,
+        #f1f8f2,
+        #ffffff
+    );
+    padding: 80px 0;
+}
+
+.yoga-detail-image {
+    height: 500px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #e8f5e9;
+    box-shadow: 0 18px 45px rgba(45, 75, 50, 0.12);
+}
+
+.yoga-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.yoga-detail-label {
+    color: #2e7d32;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.yoga-detail-hero h1 {
+    color: #2f4f34;
+    font-size: 48px;
+    font-weight: 800;
+    margin: 12px 0 18px;
+}
+
+.yoga-detail-intro {
+    color: #66736a;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 600px;
+}
+
+.yoga-detail-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.detail-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 1px solid #e4eee5;
+    border-radius: 15px;
+    padding: 13px 17px;
+    min-width: 145px;
+}
+
+.detail-info-item > i {
+    color: #2e7d32;
+    font-size: 22px;
+}
+
+.detail-info-item small {
+    display: block;
+    color: #7b867e;
+    font-size: 12px;
+}
+
+.detail-info-item strong {
+    display: block;
+    color: #344b38;
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.yoga-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.favorite-btn,
+.complete-btn,
+.completed-btn {
+    border-radius: 12px;
+    padding: 11px 20px;
+    font-weight: 600;
+}
+
+.favorite-btn {
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+    background: white;
+}
+
+.favorite-btn:hover,
+.favorite-btn.active {
+    background: #2e7d32;
+    color: white;
+}
+
+.complete-btn {
+    background: #4f6f52;
+    color: white;
+    border: none;
+}
+
+.complete-btn:hover {
+    background: #2e7d32;
+    color: white;
+}
+
+.completed-btn {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: none;
+    opacity: 1 !important;
+}
+
+.login-practice-box {
+    background: #f0f7f1;
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 520px;
+}
+
+.login-practice-box p {
+    color: #5f6f62;
+    margin-bottom: 15px;
+}
+
+.btn-start-practice {
+    background: #2e7d32;
+    color: white !important;
+    border-radius: 25px;
+    padding: 10px 22px;
+    font-weight: 600;
+}
+
+.btn-start-practice:hover {
+    background: #1b5e20;
+}
+
+.yoga-benefits-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.yoga-benefits-section h2,
+.how-practice-section h2 {
+    color: #2f4f34;
+    font-size: 36px;
+    font-weight: 750;
+}
+
+.benefit-card {
+    height: 100%;
+    text-align: center;
+    padding: 35px 25px;
+    background: #f8fbf8;
+    border: 1px solid #e5eee6;
+    border-radius: 20px;
+    transition: 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(45, 75, 50, 0.10);
+}
+
+.benefit-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 25px;
+}
+
+.benefit-card h3 {
+    color: #344b38;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.benefit-card p {
+    color: #68756b;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.how-practice-section {
+    padding: 80px 0;
+    background: #f7faf7;
+}
+
+.practice-steps {
+    margin-top: 30px;
+}
+
+.practice-step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.practice-step > span {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #4f6f52;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.practice-step h4 {
+    color: #344b38;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.practice-step p {
+    color: #68756b;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+.practice-image-box {
+    height: 420px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(45, 75, 50, 0.12);
+}
+
+.practice-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.yoga-detail-footer {
+    background: #4f6f52;
+    color: white;
+    padding: 45px 0;
+}
+
+.yoga-detail-footer h4 {
+    font-weight: 700;
+}
+
+.yoga-detail-footer p {
+    color: #e8f5e9;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .yoga-detail-hero {
+        padding: 55px 20px;
+    }
+
+    .yoga-detail-image {
+        height: 330px;
+    }
+
+    .yoga-detail-hero h1 {
+        font-size: 35px;
+    }
+
+    .yoga-detail-intro {
+        font-size: 15px;
+    }
+
+    .yoga-detail-info {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .detail-info-item {
+        width: 100%;
+    }
+
+    .yoga-detail-actions {
+        flex-direction: column;
+    }
+
+    .yoga-detail-actions form,
+    .yoga-detail-actions button {
+        width: 100%;
+    }
+
+    .yoga-detail-actions button {
+        width: 100%;
+    }
+
+    .yoga-benefits-section,
+    .how-practice-section {
+        padding: 60px 20px;
+    }
+
+    .yoga-benefits-section h2,
+    .how-practice-section h2 {
+        font-size: 29px;
+    }
+
+    .practice-image-box {
+        height: 300px;
+    }
+}

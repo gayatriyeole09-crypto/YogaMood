@@ -1,0 +1,13 @@
+{ {
+  "python.defaultInterpreterPath": "venv/bin/python",
+  "cSpell.words": ["मराठी"]
+}
+}
+
+{
+  "cSpell.language": "en,mr",
+  "cSpell.ignoreRegExpList": ["[\\u0900-\\u097F]+"]
+}
+{
+  "cSpell.enableFiletypes": ["!python"]
+}
